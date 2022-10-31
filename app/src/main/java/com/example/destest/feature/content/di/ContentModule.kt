@@ -8,10 +8,6 @@ import com.example.destest.feature.content.data.remote.ContentApi
 import com.example.destest.feature.content.data.repository.ContentRepositoryImpl
 import com.example.destest.feature.content.domain.repository.ContentRepository
 import com.example.destest.feature.content.domain.usecase.GetContent
-import com.example.destest.feature.content.domain.usecase.GetStories
-import com.example.destest.feature.content.domain.usecase.GetVideos
-import com.example.destest.feature.player.domain.repository.VideoRepository
-import com.example.destest.feature.story.domain.repository.StoryRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,18 +19,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object ContentModule {
-
-    @Provides
-    @Singleton
-    fun provideGetStoriesUseCase(repository: StoryRepository): GetStories {
-        return GetStories(repository)
-    }
-
-    @Provides
-    @Singleton
-    fun provideGetVideosUseCase(repository: VideoRepository): GetVideos {
-        return GetVideos(repository)
-    }
 
     @Provides
     @Singleton

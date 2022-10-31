@@ -1,6 +1,5 @@
 package com.example.destest.feature.player.presentation
 
-import android.content.Context
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -12,10 +11,8 @@ import com.example.destest.core.main.AppRouteParameter
 import com.example.destest.core.util.Resource
 import com.example.destest.feature.content.domain.model.Video
 import com.example.destest.feature.player.domain.usecase.GetVideo
-import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.launchIn
@@ -39,20 +36,10 @@ class PlayerViewModel @Inject constructor(
         fetchVideo(videoId)
     }
 
-    // private var video: Video by mutableStateOf(Video.Empty)
     var mediaItem: MediaItem by mutableStateOf(MediaItem.EMPTY)
         private set
-    lateinit var player: ExoPlayer
-    private val coroutineScope = MainScope()
 
-    fun fetchVideo(id: Int) {
-//        coroutineScope.launch {
-//            getVideo.execute(id)?.let {
-//                video = it
-//                mediaItem = MediaItem.fromUri(it.url)
-//                initVideoPlayer(context, it)
-//            }
-//        }
+    private fun fetchVideo(id: Int) {
 
         viewModelScope.launch {
             getVideo(id)
@@ -81,11 +68,6 @@ class PlayerViewModel @Inject constructor(
                     }
                 }.launchIn(this)
         }
-    }
-
-    private fun initVideoPlayer(context: Context, video: Video) {
-        player = ExoPlayer.Builder(context).build()
-        player.setMediaItem(MediaItem.fromUri(video.url))
     }
 
     sealed class UIEvent {

@@ -1,5 +1,6 @@
 package com.example.destest.feature.content.data.repository
 
+import com.example.destest.core.ErrorMessage
 import com.example.destest.core.util.Resource
 import com.example.destest.feature.content.data.local.StoryDao
 import com.example.destest.feature.content.data.local.VideoDao
@@ -33,9 +34,9 @@ class ContentRepositoryImpl(
             videoDao.deleteVideos(remoteContent.videos.map { it.id })
             videoDao.insertVideos(remoteContent.videos.map { it.toVideoEntity() })
         } catch (e: HttpException) {
-            emit(Resource.Error("Http error", contents))
+            emit(Resource.Error(ErrorMessage.HTTP_EXCEPTION.message, contents))
         } catch (e: IOException) {
-            emit(Resource.Error("Connection problem error", contents))
+            emit(Resource.Error(ErrorMessage.IO_EXCEPTION.message, contents))
         }
 
         val newStories = storyDao.getStories().map { it.toStory() }

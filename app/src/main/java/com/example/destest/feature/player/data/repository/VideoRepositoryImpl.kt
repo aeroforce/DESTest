@@ -1,5 +1,6 @@
 package com.example.destest.feature.player.data.repository
 
+import com.example.destest.core.ErrorMessage
 import com.example.destest.core.util.Resource
 import com.example.destest.feature.content.data.local.VideoDao
 import com.example.destest.feature.content.data.remote.ContentApi
@@ -14,25 +15,6 @@ class VideoRepositoryImpl(
     private val api: ContentApi,
     private val dao: VideoDao,
 ) : VideoRepository {
-    override fun getVideos(): Flow<Resource<List<Video>>> = flow {
-        emit(Resource.Loading())
-
-        val videos = dao.getVideos().map { it.toVideo() }
-        emit(Resource.Loading(data = videos))
-
-        try {
-            val remoteVideos = api.getContent().videos
-            dao.deleteVideos(remoteVideos.map { it.id })
-            dao.insertVideos(remoteVideos.map { it.toVideoEntity() })
-        } catch (e: HttpException) {
-            emit(Resource.Error("Http error", videos))
-        } catch (e: IOException) {
-            emit(Resource.Error("Connection problem error", videos))
-        }
-
-        val newVideos = dao.getVideos().map { it.toVideo() }
-        emit(Resource.Success(newVideos))
-    }
 
     override fun getVideo(id: Int): Flow<Resource<Video>> = flow {
         emit(Resource.Loading())
@@ -47,9 +29,9 @@ class VideoRepositoryImpl(
                 dao.insertVideos(listOf(remoteVideo.toVideoEntity()))
             }
         } catch (e: HttpException) {
-            emit(Resource.Error("Http error", story))
+            emit(Resource.Error(ErrorMessage.HTTP_EXCEPTION.message, story))
         } catch (e: IOException) {
-            emit(Resource.Error("Connection problem error", story))
+            emit(Resource.Error(ErrorMessage.IO_EXCEPTION.message, story))
         }
 
         val newStory = dao.getVideo(id).toVideo()
