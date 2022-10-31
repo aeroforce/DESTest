@@ -28,12 +28,12 @@ fun StoryItemInfo(
         Text(
             modifier = Modifier.padding(horizontal = dimens.titlePaddingHorizontal),
             text = story.title,
-            style = ItemInfoStyles.titleStyle(),
+            style = ItemInfoStyles.titleStyle,
         )
         Text(
             modifier = Modifier.fillMaxWidth().padding(dimens.authorPadding),
             text = "${strings.by} ${story.author} - ${story.getDate()}",
-            style = ItemInfoStyles.footerStyle(),
+            style = ItemInfoStyles.footerStyle,
         )
     }
 }

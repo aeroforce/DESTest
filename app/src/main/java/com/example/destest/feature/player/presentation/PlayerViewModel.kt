@@ -7,6 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.destest.core.ErrorMessage
 import com.example.destest.core.main.AppRouteParameter
 import com.example.destest.core.util.Resource
 import com.example.destest.feature.content.domain.model.Video
@@ -50,12 +51,14 @@ class PlayerViewModel @Inject constructor(
                                 video = result.data ?: Video.Empty,
                                 mediaItem = result.data?.url?.let { MediaItem.fromUri(it) } ?: mediaItem,
                                 isLoading = false,
+                                isConnectionProblem = false,
                             )
                         }
                         is Resource.Error -> {
                             _state.value = state.value.copy(
                                 video = result.data ?: Video.Empty,
                                 isLoading = false,
+                                isConnectionProblem = result.message == ErrorMessage.IO_EXCEPTION.message
                             )
                             _eventFlow.emit(UIEvent.ShowSnackBar(result.message ?: "Unknown Error"))
                         }
@@ -63,6 +66,7 @@ class PlayerViewModel @Inject constructor(
                             _state.value = state.value.copy(
                                 video = result.data ?: Video.Empty,
                                 isLoading = true,
+                                isConnectionProblem = false,
                             )
                         }
                     }

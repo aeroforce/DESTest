@@ -21,6 +21,7 @@ import androidx.navigation.NavController
 import com.example.destest.feature.content.domain.model.Story
 import com.example.destest.feature.content.domain.model.Video
 import com.example.destest.feature.content.presentation.ContentViewModel
+import com.example.destest.feature.story.presentation.compose.ConnectionProblemInfo
 import kotlinx.coroutines.flow.collectLatest
 
 private val dimens = object {
@@ -52,7 +53,9 @@ fun HomeScreen(
         modifier = Modifier.background(Color.LightGray).fillMaxSize()
     ) {
         Header(title = viewModel.getHeader())
-
+        if (state.isConnectionProblem) {
+            ConnectionProblemInfo()
+        }
         val lazyListState = rememberLazyListState()
         LazyColumn(
             state = lazyListState,

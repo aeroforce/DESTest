@@ -16,7 +16,7 @@ import com.example.destest.ui.theme.DarkBlue
 import com.example.destest.ui.theme.White
 
 private val styles = object {
-    fun headerStyle() = TextStyle(
+    val headerStyle = TextStyle(
         textAlign = TextAlign.Center,
         fontSize = 16.sp,
         color = White,
@@ -35,7 +35,7 @@ fun Header(title: String,) {
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = title,
-            style = styles.headerStyle(),
+            style = styles.headerStyle,
         )
     }
 }

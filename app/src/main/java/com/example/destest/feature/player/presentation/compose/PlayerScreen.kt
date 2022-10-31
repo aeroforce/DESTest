@@ -34,7 +34,7 @@ fun PlayerScreen() {
         }
     }
 
-    if (state.mediaItem != MediaItem.EMPTY) {
+    if (state.mediaItem != MediaItem.EMPTY && state.isConnectionProblem.not()) {
         val player = ExoPlayer.Builder(context).build()
         player.setMediaItem(MediaItem.fromUri(state.video.url))
         val playerView = StyledPlayerView(context)
@@ -63,5 +63,9 @@ fun PlayerScreen() {
                 else -> pass
             }
         }
+    }
+
+    if (state.isConnectionProblem) {
+        PlayerOffline()
     }
 }

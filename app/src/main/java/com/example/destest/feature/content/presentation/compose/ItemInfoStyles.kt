@@ -7,13 +7,13 @@ import androidx.compose.ui.unit.sp
 import com.example.destest.ui.theme.Black
 
 object ItemInfoStyles {
-    fun titleStyle() = TextStyle(
+    val titleStyle = TextStyle(
         color = Black,
         fontWeight = FontWeight.Bold,
         fontSize = 22.sp,
     )
 
-    fun footerStyle() = TextStyle(
+    val footerStyle = TextStyle(
         color = Color.LightGray,
         fontSize = 12.sp,
     )

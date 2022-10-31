@@ -27,12 +27,12 @@ fun VideoItemInfo(
         Text(
             modifier = Modifier.padding(horizontal = dimens.titlePaddingHorizontal),
             text = video.title,
-            style = ItemInfoStyles.titleStyle(),
+            style = ItemInfoStyles.titleStyle,
         )
         Text(
             modifier = Modifier.fillMaxWidth().padding(dimens.viewsPadding),
             text = "${video.views} ${strings.views}",
-            style = ItemInfoStyles.footerStyle(),
+            style = ItemInfoStyles.footerStyle,
         )
     }
 }

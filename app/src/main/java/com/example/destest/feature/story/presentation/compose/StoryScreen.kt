@@ -64,5 +64,9 @@ fun StoryScreen(navController: NavController) {
         if (state.isLoading) {
             LoadingOverlay()
         }
+        Log.d("AERODEBUG", "Story screen connectionProblem state: ${state.isConnectionProblem} and state : $state")
+        if (state.isConnectionProblem) {
+            ConnectionProblemInfo(modifier = Modifier.align(Alignment.BottomCenter))
+        }
     }
 }

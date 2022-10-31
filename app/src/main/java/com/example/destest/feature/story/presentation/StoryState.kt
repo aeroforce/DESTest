@@ -4,5 +4,6 @@ import com.example.destest.feature.content.domain.model.Story
 
 data class StoryState(
     val story: Story = Story.Empty,
-    val isLoading: Boolean = false
+    val isLoading: Boolean = false,
+    val isConnectionProblem: Boolean = false,
 )

@@ -20,23 +20,23 @@ private val dimens = object {
 }
 
 private val styles = object {
-    fun title() = TextStyle(
+    val title = TextStyle(
         fontSize = 20.sp,
         fontWeight = FontWeight.Bold,
         color = Black,
     )
 
-    fun author() = TextStyle(
+    val author = TextStyle(
         fontSize = 12.sp,
         color = Black,
     )
 
-    fun date() = TextStyle(
+    val date = TextStyle(
         fontSize = 10.sp,
         color = Black,
     )
 
-    fun teaser() = TextStyle(
+    val teaser = TextStyle(
         color = Black,
     )
 }
@@ -53,7 +53,7 @@ fun StoryInfo(modifier: Modifier = Modifier, story: Story) {
                 .fillMaxWidth()
                 .padding(start = dimens.paddingStart),
             text = story.title,
-            style = styles.title(),
+            style = styles.title,
         )
 
         Text(
@@ -61,20 +61,20 @@ fun StoryInfo(modifier: Modifier = Modifier, story: Story) {
                 .fillMaxWidth()
                 .padding(start = dimens.paddingStart),
             text = "${strings.by} ${story.author}",
-            style = styles.author(),
+            style = styles.author,
         )
         Text(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = dimens.paddingStart),
             text = story.getDate(),
-            style = styles.date(),
+            style = styles.date,
         )
         Text(
             modifier = Modifier
                 .padding(dimens.teaserPadding),
             text = story.teaser,
-            style = styles.teaser(),
+            style = styles.teaser,
         )
     }
 }

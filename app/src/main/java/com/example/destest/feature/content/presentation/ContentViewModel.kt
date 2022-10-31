@@ -40,20 +40,21 @@ class ContentViewModel @Inject constructor(
                         is Resource.Success -> {
                             _state.value = state.value.copy(
                                 content = result.data ?: emptyList(),
-                                isLoading = false
+                                isLoading = false,
                             )
                         }
                         is Resource.Error -> {
                             _state.value = state.value.copy(
                                 content = result.data ?: emptyList(),
-                                isLoading = false
+                                isLoading = false,
+                                isConnectionProblem = result.message == ErrorMessage.IO_EXCEPTION.message,
                             )
                             _eventFlow.emit(UIEvent.ShowSnackBar(result.message ?: ErrorMessage.UNKNOWN.message))
                         }
                         is Resource.Loading -> {
                             _state.value = state.value.copy(
                                 content = result.data ?: emptyList(),
-                                isLoading = true
+                                isLoading = true,
                             )
                         }
                     }
