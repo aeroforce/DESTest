@@ -1,11 +1,11 @@
-package com.example.destest.feature.content.data.repository
+package com.example.destest.feature.story.data.repository
 
 import android.util.Log
 import com.example.destest.core.util.Resource
 import com.example.destest.feature.content.data.local.StoryDao
 import com.example.destest.feature.content.data.remote.ContentApi
 import com.example.destest.feature.content.domain.model.Story
-import com.example.destest.feature.content.domain.repository.StoryRepository
+import com.example.destest.feature.story.domain.repository.StoryRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException

@@ -16,6 +16,18 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.destest.R
 
+private val dimens = object {
+    val posterHeight = 240.dp
+    val ctaHeight = 50.dp
+    val ctaPaddingTop = 12.dp
+    val ctaPaddingHorizontal = 8.dp
+}
+
+private val ids = object {
+    val back = "Back"
+    val share = "Share"
+}
+
 @Composable
 fun StoryPoster(
     navController: NavController,
@@ -31,27 +43,27 @@ fun StoryPoster(
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .fillMaxWidth()
-                .height(240.dp),
+                .height(dimens.posterHeight),
             model = image,
             contentDescription = description,
             contentScale = ContentScale.Crop,
         )
         Image(
             modifier = Modifier
-                .height(50.dp)
+                .height(dimens.ctaHeight)
                 .align(Alignment.TopStart)
-                .padding(top = 12.dp, start = 8.dp)
+                .padding(top = dimens.ctaPaddingTop, start = dimens.ctaPaddingHorizontal)
                 .clickable { navController.popBackStack() },
             painter = painterResource(id = R.drawable.ic_back),
-            contentDescription = "Back",
+            contentDescription = ids.back,
         )
         Image(
             modifier = Modifier
-                .height(50.dp)
+                .height(dimens.ctaHeight)
                 .align(Alignment.TopEnd)
-                .padding(top = 12.dp, end = 8.dp),
+                .padding(top = dimens.ctaPaddingTop, end = dimens.ctaPaddingHorizontal),
             painter = painterResource(id = R.drawable.ic_share),
-            contentDescription = "Back",
+            contentDescription = ids.share,
         )
     }
 }

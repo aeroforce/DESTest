@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.destest.core.main.AppRouteParameter
 import com.example.destest.core.util.Resource
 import com.example.destest.feature.content.domain.model.Story
-import com.example.destest.feature.content.domain.usecase.GetStory
+import com.example.destest.feature.story.domain.usecase.GetStory
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow

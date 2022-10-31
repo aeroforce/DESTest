@@ -13,17 +13,26 @@ import androidx.compose.ui.unit.dp
 import com.example.destest.ui.theme.DarkBlue
 import com.example.destest.ui.theme.White
 
+private val dimens = object {
+    val roundedCornerSize = 8.dp
+    val labelPaddingHorizontal = 8.dp
+    val labelPaddingVertical = 4.dp
+}
+
 @Composable
 fun SportTag(modifier: Modifier, sport: String) {
     Box(
         modifier = modifier
-            .clip(shape = RoundedCornerShape(8.dp))
+            .clip(shape = RoundedCornerShape(dimens.roundedCornerSize))
             .background(DarkBlue)
     ) {
         Text(
             modifier = Modifier
                 .align(Alignment.Center)
-                .padding(horizontal = 8.dp, vertical = 4.dp),
+                .padding(
+                    horizontal = dimens.labelPaddingHorizontal,
+                    vertical = dimens.labelPaddingVertical
+                ),
             text = sport.uppercase(),
             color = White,
         )

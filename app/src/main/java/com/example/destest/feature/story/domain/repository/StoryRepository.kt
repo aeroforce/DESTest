@@ -1,4 +1,4 @@
-package com.example.destest.feature.content.domain.repository
+package com.example.destest.feature.story.domain.repository
 
 import com.example.destest.core.util.Resource
 import com.example.destest.feature.content.domain.model.Story

@@ -51,7 +51,7 @@ fun DESTestNavHost(
         ) {
             activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
             activity.hideSystemUI()
-            PlayerScreen(id = it.arguments?.getInt(AppRouteParameter.PLAYER.param) ?: 0)
+            PlayerScreen()
         }
     }
 }

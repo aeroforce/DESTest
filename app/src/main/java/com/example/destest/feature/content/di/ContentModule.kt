@@ -6,16 +6,12 @@ import com.example.destest.feature.content.data.local.StoryDatabase
 import com.example.destest.feature.content.data.local.VideoDatabase
 import com.example.destest.feature.content.data.remote.ContentApi
 import com.example.destest.feature.content.data.repository.ContentRepositoryImpl
-import com.example.destest.feature.content.data.repository.StoryRepositoryImpl
-import com.example.destest.feature.content.data.repository.VideoRepositoryImpl
 import com.example.destest.feature.content.domain.repository.ContentRepository
-import com.example.destest.feature.content.domain.repository.StoryRepository
-import com.example.destest.feature.content.domain.repository.VideoRepository
 import com.example.destest.feature.content.domain.usecase.GetContent
 import com.example.destest.feature.content.domain.usecase.GetStories
-import com.example.destest.feature.content.domain.usecase.GetStory
 import com.example.destest.feature.content.domain.usecase.GetVideos
-import com.example.destest.feature.player.domain.usecase.GetVideo
+import com.example.destest.feature.player.domain.repository.VideoRepository
+import com.example.destest.feature.story.domain.repository.StoryRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -44,36 +40,6 @@ object ContentModule {
     @Singleton
     fun provideGetContentUseCase(repository: ContentRepository): GetContent {
         return GetContent(repository)
-    }
-
-    @Provides
-    @Singleton
-    fun provideGetStoryUseCase(repository: StoryRepository): GetStory {
-        return GetStory(repository)
-    }
-
-    @Provides
-    @Singleton
-    fun provideGetVideoUseCase(repository: VideoRepository): GetVideo {
-        return GetVideo(repository)
-    }
-
-    @Provides
-    @Singleton
-    fun provideStoryRepository(
-        db: StoryDatabase,
-        api: ContentApi,
-    ): StoryRepository {
-        return StoryRepositoryImpl(api, db.dao)
-    }
-
-    @Provides
-    @Singleton
-    fun provideVideoRepository(
-        db: VideoDatabase,
-        api: ContentApi,
-    ): VideoRepository {
-        return VideoRepositoryImpl(api, db.dao)
     }
 
     @Provides

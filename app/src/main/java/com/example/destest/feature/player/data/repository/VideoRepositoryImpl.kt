@@ -1,10 +1,10 @@
-package com.example.destest.feature.content.data.repository
+package com.example.destest.feature.player.data.repository
 
 import com.example.destest.core.util.Resource
 import com.example.destest.feature.content.data.local.VideoDao
 import com.example.destest.feature.content.data.remote.ContentApi
 import com.example.destest.feature.content.domain.model.Video
-import com.example.destest.feature.content.domain.repository.VideoRepository
+import com.example.destest.feature.player.domain.repository.VideoRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException

@@ -10,13 +10,21 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.destest.R
 
+private val dimens = object {
+    val playOverlayHeight = 54.dp
+}
+
+private val ids = object {
+    val playOverlay = "PlayOverlay"
+}
+
 @Composable
-fun PlayButton(modifier: Modifier = Modifier) {
-    Box(modifier = modifier.height(54.dp)) {
+fun PlayOverlay(modifier: Modifier = Modifier) {
+    Box(modifier = modifier.height(dimens.playOverlayHeight)) {
         Image(
             modifier = Modifier.fillMaxSize(),
             painter = painterResource(id = R.drawable.ic_play),
-            contentDescription = "PlayButton",
+            contentDescription = ids.playOverlay,
         )
     }
 }

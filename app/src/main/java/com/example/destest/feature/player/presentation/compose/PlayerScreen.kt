@@ -20,9 +20,7 @@ import com.google.android.exoplayer2.ui.StyledPlayerView
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
-fun PlayerScreen(
-    id: Int,
-) {
+fun PlayerScreen() {
     val context = LocalContext.current
     val viewModel = hiltViewModel<PlayerViewModel>()
     val state = viewModel.state.value
@@ -30,7 +28,7 @@ fun PlayerScreen(
         viewModel.eventFlow.collectLatest { event ->
             when (event) {
                 is PlayerViewModel.UIEvent.ShowSnackBar -> {
-                    Log.d("AERODEBUG", event.message)
+                    Log.d("Player", event.message)
                 }
             }
         }
