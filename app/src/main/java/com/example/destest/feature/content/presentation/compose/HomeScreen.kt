@@ -1,6 +1,5 @@
 package com.example.destest.feature.content.presentation.compose
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,11 +12,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.destest.core.extension.showToast
+import com.example.destest.core.main.UIEvent
 import com.example.destest.feature.content.domain.model.Story
 import com.example.destest.feature.content.domain.model.Video
 import com.example.destest.feature.content.presentation.ContentViewModel
@@ -38,13 +40,12 @@ fun HomeScreen(
 ) {
     val viewModel: ContentViewModel = hiltViewModel()
     val state = viewModel.state.value
+    val context = LocalContext.current
 
     LaunchedEffect(key1 = true) {
         viewModel.eventFlow.collectLatest { event ->
             when (event) {
-                is ContentViewModel.UIEvent.ShowSnackBar -> {
-                    Log.d("AERODEBUG", event.message)
-                }
+                is UIEvent.ShowToast -> context.showToast(event.message)
             }
         }
     }

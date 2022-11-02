@@ -1,6 +1,5 @@
 package com.example.destest.feature.story.presentation.compose
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,9 +8,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.destest.core.extension.showToast
+import com.example.destest.core.main.UIEvent
 import com.example.destest.feature.content.presentation.compose.LoadingOverlay
 import com.example.destest.feature.content.presentation.compose.SportTag
 import com.example.destest.feature.story.presentation.StoryViewModel
@@ -28,12 +30,12 @@ private val dimens = object {
 fun StoryScreen(navController: NavController) {
     val viewModel = hiltViewModel<StoryViewModel>()
     val state = viewModel.state.value
+    val context = LocalContext.current
+
     LaunchedEffect(key1 = true) {
         viewModel.eventFlow.collectLatest { event ->
             when (event) {
-                is StoryViewModel.UIEvent.ShowSnackBar -> {
-                    Log.d("AERODEBUG", event.message)
-                }
+                is UIEvent.ShowToast -> context.showToast(event.message)
             }
         }
     }
@@ -64,7 +66,6 @@ fun StoryScreen(navController: NavController) {
         if (state.isLoading) {
             LoadingOverlay()
         }
-        Log.d("AERODEBUG", "Story screen connectionProblem state: ${state.isConnectionProblem} and state : $state")
         if (state.isConnectionProblem) {
             ConnectionProblemInfo(modifier = Modifier.align(Alignment.BottomCenter))
         }

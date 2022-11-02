@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.destest.core.ErrorMessage
 import com.example.destest.core.main.AppRouteParameter
+import com.example.destest.core.main.UIEvent
 import com.example.destest.core.util.Resource
 import com.example.destest.feature.content.domain.model.Video
 import com.example.destest.feature.player.domain.usecase.GetVideo
@@ -29,7 +30,7 @@ class PlayerViewModel @Inject constructor(
     private val _state = mutableStateOf(PlayerState())
     val state: State<PlayerState> = _state
 
-    private val _eventFlow = MutableSharedFlow<PlayerViewModel.UIEvent>()
+    private val _eventFlow = MutableSharedFlow<UIEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
 
     init {
@@ -60,7 +61,7 @@ class PlayerViewModel @Inject constructor(
                                 isLoading = false,
                                 isConnectionProblem = result.message == ErrorMessage.IO_EXCEPTION.message
                             )
-                            _eventFlow.emit(UIEvent.ShowSnackBar(result.message ?: "Unknown Error"))
+                            _eventFlow.emit(UIEvent.ShowToast(result.message ?: ErrorMessage.UNKNOWN.message))
                         }
                         is Resource.Loading -> {
                             _state.value = state.value.copy(
@@ -72,9 +73,5 @@ class PlayerViewModel @Inject constructor(
                     }
                 }.launchIn(this)
         }
-    }
-
-    sealed class UIEvent {
-        data class ShowSnackBar(val message: String) : UIEvent()
     }
 }

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.destest.core.ErrorMessage
 import com.example.destest.core.main.AppRouteParameter
+import com.example.destest.core.main.UIEvent
 import com.example.destest.core.util.Resource
 import com.example.destest.feature.content.domain.model.Story
 import com.example.destest.feature.story.domain.usecase.GetStory
@@ -52,7 +53,7 @@ class StoryViewModel @Inject constructor(
                                 isLoading = false,
                                 isConnectionProblem = result.message == ErrorMessage.IO_EXCEPTION.message,
                             )
-                            _eventFlow.emit(UIEvent.ShowSnackBar(result.message ?: "Unknown Error"))
+                            _eventFlow.emit(UIEvent.ShowToast(result.message ?: ErrorMessage.UNKNOWN.message))
                         }
                         is Resource.Loading -> {
                             _state.value = state.value.copy(
@@ -63,9 +64,5 @@ class StoryViewModel @Inject constructor(
                     }
                 }.launchIn(this)
         }
-    }
-
-    sealed class UIEvent {
-        data class ShowSnackBar(val message: String) : UIEvent()
     }
 }
