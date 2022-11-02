@@ -13,6 +13,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
+import androidx.navigation.NavController
 import com.example.destest.core.extension.showToast
 import com.example.destest.core.kotlin.pass
 import com.example.destest.core.main.UIEvent
@@ -27,14 +28,17 @@ import com.google.android.exoplayer2.ui.StyledPlayerView
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
-fun PlayerScreen() {
+fun PlayerScreen(navController: NavController) {
     val context = LocalContext.current
     val viewModel = hiltViewModel<PlayerViewModel>()
     val state = viewModel.state.value
     LaunchedEffect(key1 = true) {
         viewModel.eventFlow.collectLatest { event ->
             when (event) {
-                is UIEvent.ShowToast -> context.showToast(event.message)
+                is UIEvent.ShowToast -> {
+                    context.showToast(event.message)
+                    navController.popBackStack()
+                }
             }
         }
     }
@@ -42,7 +46,7 @@ fun PlayerScreen() {
         .fillMaxSize()
         .background(Black)
     ) {
-        if (state.mediaItem != MediaItem.EMPTY && state.isConnectionProblem.not()) {
+        if (state.mediaItem != MediaItem.EMPTY) {
             val player = ExoPlayer.Builder(context).build()
             player.setMediaItem(MediaItem.fromUri(state.video.url))
             val playerView = StyledPlayerView(context)
@@ -70,10 +74,6 @@ fun PlayerScreen() {
                     }
                     else -> pass
                 }
-            }
-        } else {
-            if (state.isConnectionProblem) {
-                PlayerOffline()
             }
         }
         if (state.isLoading) {

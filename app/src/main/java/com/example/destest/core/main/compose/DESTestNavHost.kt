@@ -51,7 +51,7 @@ fun DESTestNavHost(
         ) {
             activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
             activity.hideSystemUI()
-            PlayerScreen()
+            PlayerScreen(navController)
         }
     }
 }
