@@ -1,4 +1,4 @@
-package com.example.destest.feature.story.presentation.compose
+package com.example.destest.core.main.compose
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

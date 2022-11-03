@@ -1,6 +1,5 @@
 package com.example.destest.feature.player.presentation
 
-import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -9,14 +8,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.destest.core.ErrorMessage
 import com.example.destest.core.main.AppRouteParameter
-import com.example.destest.core.main.UIEvent
+import com.example.destest.core.service.appstate.AppStateService
 import com.example.destest.core.util.Resource
 import com.example.destest.feature.content.domain.model.Video
 import com.example.destest.feature.player.domain.usecase.GetVideo
 import com.google.android.exoplayer2.MediaItem
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -25,13 +22,12 @@ import javax.inject.Inject
 @HiltViewModel
 class PlayerViewModel @Inject constructor(
     private val getVideo: GetVideo,
+    private val appStateService: AppStateService,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
-    private val _state = mutableStateOf(PlayerState())
-    val state: State<PlayerState> = _state
 
-    private val _eventFlow = MutableSharedFlow<UIEvent>()
-    val eventFlow = _eventFlow.asSharedFlow()
+    var state by mutableStateOf(PlayerState())
+        private set
 
     init {
         val videoId = savedStateHandle.get<Int>(AppRouteParameter.PLAYER.param) ?: 0
@@ -48,24 +44,29 @@ class PlayerViewModel @Inject constructor(
                 .onEach { result ->
                     when (result) {
                         is Resource.Success -> {
-                            _state.value = state.value.copy(
+                            state = state.copy(
                                 video = result.data ?: Video.Empty,
                                 mediaItem = result.data?.url?.let { MediaItem.fromUri(it) } ?: mediaItem,
-                                isLoading = false,
                             )
+                            appStateService.setBusy(false)
                         }
                         is Resource.Error -> {
-                            _state.value = state.value.copy(
+                            appStateService.setBusy(false)
+                            state = state.copy(
                                 video = result.data ?: Video.Empty,
-                                isLoading = false,
+                                isConnectionProblem = true,
                             )
-                            _eventFlow.emit(UIEvent.ShowToast(result.message ?: ErrorMessage.UNKNOWN.message))
+                            result.message?.let { message ->
+                                if (message == ErrorMessage.IO_EXCEPTION.message) {
+                                    appStateService.setConnectionProblem(true)
+                                }
+                            }
                         }
                         is Resource.Loading -> {
-                            _state.value = state.value.copy(
+                            state = state.copy(
                                 video = result.data ?: Video.Empty,
-                                isLoading = true,
                             )
+                            appStateService.setBusy(true)
                         }
                     }
                 }.launchIn(this)

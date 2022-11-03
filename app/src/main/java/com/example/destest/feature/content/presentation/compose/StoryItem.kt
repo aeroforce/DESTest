@@ -11,8 +11,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import com.example.destest.core.main.AppRoute
 import com.example.destest.feature.content.domain.model.Story
 import com.example.destest.ui.theme.White
 
@@ -24,12 +22,12 @@ private val dimens = object {
 }
 
 @Composable
-fun StoryItem(navController: NavController, story: Story) {
+fun StoryItem(story: Story, onCLick: () -> Unit = {}) {
     Box(
         modifier = Modifier
             .clip(shape = RoundedCornerShape(dimens.roundedCornerShapeSize))
             .background(White)
-            .clickable { navController.navigate("${AppRoute.STORY.route}/${story.id}") }
+            .clickable { onCLick.invoke() }
     ) {
         ItemPoster(modifier = Modifier.align(Alignment.TopCenter), story.image, story.title)
         StoryItemInfo(

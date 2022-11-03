@@ -5,20 +5,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
-import com.example.destest.core.extension.showToast
-import com.example.destest.core.main.UIEvent
-import com.example.destest.feature.content.presentation.compose.LoadingOverlay
+import com.example.destest.feature.content.domain.model.Story
 import com.example.destest.feature.content.presentation.compose.SportTag
 import com.example.destest.feature.story.presentation.StoryViewModel
 import com.example.destest.ui.theme.White
-import kotlinx.coroutines.flow.collectLatest
 
 private val dimens = object {
     val storyPaddingTop = 250.dp
@@ -27,47 +21,35 @@ private val dimens = object {
 }
 
 @Composable
-fun StoryScreen(navController: NavController) {
+fun StoryScreen(onBackClick :() -> Unit = {}) {
     val viewModel = hiltViewModel<StoryViewModel>()
-    val state = viewModel.state.value
-    val context = LocalContext.current
+    StoryComponent(story = viewModel.story, onBackClick = onBackClick)
+}
 
-    LaunchedEffect(key1 = true) {
-        viewModel.eventFlow.collectLatest { event ->
-            when (event) {
-                is UIEvent.ShowToast -> context.showToast(event.message)
-            }
-        }
-    }
-
+@Composable
+private fun StoryComponent(story: Story, onBackClick :() -> Unit = {}) {
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(White)
     ) {
         StoryPoster(
-            navController = navController,
+            onBackClick = onBackClick,
             modifier = Modifier.align(Alignment.TopCenter),
-            image = state.story.image,
-            description = state.story.title,
+            image = story.image,
+            description = story.title,
         )
         StoryInfo(
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .padding(top = dimens.storyPaddingTop),
-            story = state.story
+            story = story
         )
         SportTag(
             modifier = Modifier
                 .align(Alignment.TopStart)
                 .padding(top = dimens.sportTagPaddingTop, start = dimens.sportTagPaddingStart),
-            sport = state.story.sport,
+            sport = story.sport,
         )
-        if (state.isLoading) {
-            LoadingOverlay()
-        }
-        if (state.isConnectionProblem) {
-            ConnectionProblemInfo(modifier = Modifier.align(Alignment.BottomCenter))
-        }
     }
 }

@@ -11,8 +11,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import com.example.destest.core.main.AppRoute
 import com.example.destest.feature.content.domain.model.Video
 import com.example.destest.ui.theme.White
 
@@ -25,30 +23,30 @@ private val dimens = object {
 }
 
 @Composable
-fun VideoItem(navController: NavController, contentItem: Video) {
+fun VideoItem(video: Video, onClick: () -> Unit = {}) {
     Box(
         modifier = Modifier
             .clip(shape = RoundedCornerShape(dimens.roundedCornerShapeSize))
             .background(White)
-            .clickable { navController.navigate("${AppRoute.PLAYER.route}/${contentItem.id}") }
+            .clickable { onClick.invoke() }
     ) {
         ItemPoster(
             modifier = Modifier.align(Alignment.TopCenter),
-            contentItem.thumb,
-            contentItem.title
+            video.thumb,
+            video.title
         )
         VideoItemInfo(
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.BottomCenter)
                 .padding(top = dimens.videoInfoPaddingTop),
-            video = contentItem,
+            video = video,
         )
         SportTag(
             modifier = Modifier
                 .align(Alignment.TopStart)
                 .padding(start = dimens.sportTagPaddingStart, top = dimens.sportTagPaddingTop),
-            contentItem.sport,
+            video.sport,
         )
         PlayOverlay(
             modifier = Modifier

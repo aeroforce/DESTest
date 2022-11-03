@@ -12,8 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import coil.compose.AsyncImagePainter.State.Empty.painter
 import com.example.destest.R
 
 private val dimens = object {
@@ -30,10 +30,10 @@ private val ids = object {
 
 @Composable
 fun StoryPoster(
-    navController: NavController,
     modifier: Modifier = Modifier,
     image: String,
     description: String,
+    onBackClick :() -> Unit = {},
 ) {
     Box(
         modifier = modifier
@@ -53,7 +53,7 @@ fun StoryPoster(
                 .height(dimens.ctaHeight)
                 .align(Alignment.TopStart)
                 .padding(top = dimens.ctaPaddingTop, start = dimens.ctaPaddingHorizontal)
-                .clickable { navController.popBackStack() },
+                .clickable { onBackClick.invoke() },
             painter = painterResource(id = R.drawable.ic_back),
             contentDescription = ids.back,
         )

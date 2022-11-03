@@ -6,5 +6,5 @@ import com.google.android.exoplayer2.MediaItem
 data class PlayerState(
     val video: Video = Video.Empty,
     val mediaItem: MediaItem = MediaItem.EMPTY,
-    val isLoading: Boolean = false,
+    val isConnectionProblem: Boolean = false,
 )

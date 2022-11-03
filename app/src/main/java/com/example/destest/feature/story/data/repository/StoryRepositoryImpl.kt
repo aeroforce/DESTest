@@ -27,14 +27,14 @@ class StoryRepositoryImpl(
             if (remoteStory != null) {
                 dao.deleteStories(listOf(remoteStory.id))
                 dao.insertStories(listOf(remoteStory.toStoryEntity()))
+
+                val newStory = dao.getStory(id).toStory()
+                emit(Resource.Success(newStory))
             }
         } catch (e: HttpException) {
             emit(Resource.Error(ErrorMessage.HTTP_EXCEPTION.message, story))
         } catch (e: IOException) {
             emit(Resource.Error(ErrorMessage.IO_EXCEPTION.message, story))
         }
-
-        val newStory = dao.getStory(id).toStory()
-        emit(Resource.Success(newStory))
     }
 }

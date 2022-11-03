@@ -1,16 +1,16 @@
 package com.example.destest.feature.content.presentation
 
-import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.destest.core.ErrorMessage
-import com.example.destest.core.main.UIEvent
+import com.example.destest.core.service.appstate.AppStateService
 import com.example.destest.core.util.Resource
+import com.example.destest.feature.content.domain.model.ContentItem
 import com.example.destest.feature.content.domain.usecase.GetContent
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -19,19 +19,15 @@ import javax.inject.Inject
 @HiltViewModel
 class ContentViewModel @Inject constructor(
     private val getContent: GetContent,
+    private val appStateService: AppStateService,
 ) : ViewModel() {
 
-    private val _state = mutableStateOf(ContentState())
-    val state: State<ContentState> = _state
-
-    private val _eventFlow = MutableSharedFlow<UIEvent>()
-    val eventFlow = _eventFlow.asSharedFlow()
+    var content: List<ContentItem> by mutableStateOf(emptyList())
+        private set
 
     init {
         fetchContent()
     }
-
-    fun getHeader() = "FEATURED"
 
     private fun fetchContent() {
         viewModelScope.launch {
@@ -39,24 +35,21 @@ class ContentViewModel @Inject constructor(
                 .onEach { result ->
                     when (result) {
                         is Resource.Success -> {
-                            _state.value = state.value.copy(
-                                content = result.data ?: emptyList(),
-                                isLoading = false,
-                            )
+                            content = result.data ?: emptyList()
+                            appStateService.setBusy(false)
                         }
                         is Resource.Error -> {
-                            _state.value = state.value.copy(
-                                content = result.data ?: emptyList(),
-                                isLoading = false,
-                                isConnectionProblem = result.message == ErrorMessage.IO_EXCEPTION.message,
-                            )
-                            _eventFlow.emit(UIEvent.ShowToast(result.message ?: ErrorMessage.UNKNOWN.message))
+                            content = result.data ?: emptyList()
+                            appStateService.setBusy(false)
+                            result.message?.let { message ->
+                                if (message == ErrorMessage.IO_EXCEPTION.message) {
+                                    appStateService.setConnectionProblem(true)
+                                }
+                            }
                         }
                         is Resource.Loading -> {
-                            _state.value = state.value.copy(
-                                content = result.data ?: emptyList(),
-                                isLoading = true,
-                            )
+                            content = result.data ?: emptyList()
+                            appStateService.setBusy(true)
                         }
                     }
                 }.launchIn(this)
