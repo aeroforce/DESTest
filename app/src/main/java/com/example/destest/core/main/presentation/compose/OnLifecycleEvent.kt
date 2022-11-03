@@ -1,4 +1,4 @@
-package com.example.destest.core.main.compose
+package com.example.destest.core.main.presentation.compose
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect

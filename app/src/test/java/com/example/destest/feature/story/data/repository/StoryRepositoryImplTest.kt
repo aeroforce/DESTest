@@ -39,7 +39,7 @@ class StoryRepositoryImplTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun `getContent flow should start from ResourceLoading`() = runTest {
+    fun `getStory flow should start from ResourceLoading`() = runTest {
         // given
 
         // when

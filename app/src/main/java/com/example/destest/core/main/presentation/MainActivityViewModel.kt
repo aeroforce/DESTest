@@ -1,4 +1,4 @@
-package com.example.destest.core.main
+package com.example.destest.core.main.presentation
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

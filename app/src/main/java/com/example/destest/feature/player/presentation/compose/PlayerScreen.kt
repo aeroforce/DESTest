@@ -15,7 +15,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import com.example.destest.core.kotlin.pass
-import com.example.destest.core.main.compose.OnLifecycleEvent
+import com.example.destest.core.main.presentation.compose.OnLifecycleEvent
 import com.example.destest.feature.player.presentation.PlayerViewModel
 import com.example.destest.ui.theme.Black
 import com.google.android.exoplayer2.ExoPlayer

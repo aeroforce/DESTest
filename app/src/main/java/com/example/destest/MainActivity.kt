@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.example.destest.core.main.compose.DESTestNavHost
+import com.example.destest.core.main.presentation.compose.DESTestNavHost
 import com.example.destest.ui.theme.DESTestTheme
 import dagger.hilt.android.AndroidEntryPoint
 

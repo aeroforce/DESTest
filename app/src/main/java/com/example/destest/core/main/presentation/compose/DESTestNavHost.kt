@@ -1,4 +1,4 @@
-package com.example.destest.core.main.compose
+package com.example.destest.core.main.presentation.compose
 
 import android.app.Activity
 import android.content.pm.ActivityInfo
@@ -18,7 +18,7 @@ import com.example.destest.core.extension.hideSystemUI
 import com.example.destest.core.extension.showSystemUI
 import com.example.destest.core.main.AppRoute
 import com.example.destest.core.main.AppRouteParameter
-import com.example.destest.core.main.MainActivityViewModel
+import com.example.destest.core.main.presentation.MainActivityViewModel
 import com.example.destest.feature.content.presentation.compose.HomeScreen
 import com.example.destest.feature.content.presentation.compose.LoadingOverlay
 import com.example.destest.feature.player.presentation.compose.PlayerScreen
