@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.destest.R
 import com.example.destest.feature.content.domain.model.Story
 import com.example.destest.feature.content.domain.model.getDate
 
@@ -15,8 +17,9 @@ private val dimens = object {
     val authorPadding = 10.dp
 }
 
-private val strings = object {
-    val by = "By"
+private val strings = object : Any(){
+    @Composable
+    fun by() = stringResource(id = R.string.content_by)
 }
 
 @Composable
@@ -32,7 +35,7 @@ fun StoryItemInfo(
         )
         Text(
             modifier = Modifier.fillMaxWidth().padding(dimens.authorPadding),
-            text = "${strings.by} ${story.author} - ${story.getDate()}",
+            text = "${strings.by()} ${story.author} - ${story.getDate()}",
             style = ItemInfoStyles.footerStyle,
         )
     }

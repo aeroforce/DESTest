@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">DES Test</string>
     <string name="content_header">FEATURED</string>
+    <string name="content_views">views</string>
+    <string name="content_by">By</string>
+    <string name="story_by">By</string>
+    <string name="main_connection">Connection problems. Offline content mode</string>
     <string name="player_cta_button">Connection issues. Click to go back</string>
 </resources>

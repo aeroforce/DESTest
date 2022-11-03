@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.destest.R
 import com.example.destest.feature.content.domain.model.Video
 
 private val dimens = object {
@@ -14,8 +16,9 @@ private val dimens = object {
     val viewsPadding = 10.dp
 }
 
-private val strings = object {
-    val views = "views"
+private val strings = object : Any(){
+    @Composable
+    fun views() = stringResource(id = R.string.content_views)
 }
 
 @Composable
@@ -31,7 +34,7 @@ fun VideoItemInfo(
         )
         Text(
             modifier = Modifier.fillMaxWidth().padding(dimens.viewsPadding),
-            text = "${video.views} ${strings.views}",
+            text = "${video.views} ${strings.views()}",
             style = ItemInfoStyles.footerStyle,
         )
     }

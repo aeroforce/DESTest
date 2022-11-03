@@ -6,10 +6,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.destest.R
 import com.example.destest.feature.content.domain.model.Story
 import com.example.destest.feature.content.domain.model.getDate
 import com.example.destest.ui.theme.Black
@@ -41,8 +43,9 @@ private val styles = object {
     )
 }
 
-private val strings = object {
-    val by = "By"
+private val strings = object : Any(){
+    @Composable
+    fun by() = stringResource(id = R.string.story_by)
 }
 
 @Composable
@@ -60,7 +63,7 @@ fun StoryInfo(modifier: Modifier = Modifier, story: Story) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = dimens.paddingStart),
-            text = "${strings.by} ${story.author}",
+            text = "${strings.by()} ${story.author}",
             style = styles.author,
         )
         Text(
