@@ -1,5 +1,6 @@
 package com.example.destest.core.main.presentation.compose
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.pm.ActivityInfo
 import androidx.compose.foundation.layout.Box
@@ -24,6 +25,7 @@ import com.example.destest.feature.content.presentation.compose.LoadingOverlay
 import com.example.destest.feature.player.presentation.compose.PlayerScreen
 import com.example.destest.feature.story.presentation.compose.StoryScreen
 
+@SuppressLint("SourceLockedOrientationActivity")
 @Composable
 fun DESTestNavHost(
     modifier: Modifier = Modifier,
@@ -41,7 +43,7 @@ fun DESTestNavHost(
             startDestination = startDestination,
         ) {
             composable(AppRoute.HOME.route) {
-                activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+                activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
                 activity.showSystemUI()
                 HomeScreen(navController)
             }
@@ -51,7 +53,7 @@ fun DESTestNavHost(
                     type = NavType.IntType
                 })
             ) {
-                activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+                activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
                 activity.showSystemUI()
                 StoryScreen(onBackClick = { navController.popBackStack() })
             }
