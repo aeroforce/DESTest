@@ -31,7 +31,7 @@ private val ids = object {
     val listScrollContainer = "scrollContainer"
 }
 
-private val strings = object : Any(){
+private val strings = object : Any() {
     @Composable
     fun header() = stringResource(id = R.string.content_header)
 }
@@ -57,8 +57,8 @@ fun HomeScreen(navController: NavController) {
         ) {
             items(viewModel.content) {
                 when (it) {
-                    is Story -> StoryItem(story = it, onCLick = { navController.navigate("${AppRoute.STORY.route}/${it.id}") } )
-                    is Video -> VideoItem(video = it, onClick = { navController.navigate("${AppRoute.PLAYER.route}/${it.id}") } )
+                    is Story -> StoryItem(story = it, onCLick = { navController.navigate("${AppRoute.STORY.route}/${it.id}") })
+                    is Video -> VideoItem(video = it, onClick = { navController.navigate("${AppRoute.PLAYER.route}/${it.id}") })
                 }
             }
         }

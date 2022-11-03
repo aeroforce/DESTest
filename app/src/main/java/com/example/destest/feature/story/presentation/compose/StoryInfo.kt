@@ -43,7 +43,7 @@ private val styles = object {
     )
 }
 
-private val strings = object : Any(){
+private val strings = object : Any() {
     @Composable
     fun by() = stringResource(id = R.string.story_by)
 }

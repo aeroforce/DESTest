@@ -48,7 +48,6 @@ class VideoRepositoryImplTest {
         assert(data is Resource.Loading)
     }
 
-
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `getVideo flow should emit Resource 3 times`() = runTest {
@@ -90,6 +89,6 @@ class VideoRepositoryImplTest {
         videoRepositoryImpl.getVideo(videoId).toList()
 
         // then
-        coVerify (exactly = 1) { contentApi.getContent() }
+        coVerify(exactly = 1) { contentApi.getContent() }
     }
 }

@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.example.destest.R
 
-private val strings = object : Any(){
+private val strings = object : Any() {
     @Composable
     fun ctaButton() = stringResource(id = R.string.player_cta_button)
 }
@@ -18,7 +18,7 @@ fun PlayerConnectionProblemCta(
     onClick: () -> Unit,
 ) {
     Button(
-        modifier =  modifier,
+        modifier = modifier,
         onClick = onClick,
         content = { Text(strings.ctaButton()) }
     )

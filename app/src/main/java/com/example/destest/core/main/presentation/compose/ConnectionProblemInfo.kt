@@ -24,7 +24,7 @@ private val styles = object {
     )
 }
 
-private val strings = object : Any(){
+private val strings = object : Any() {
     @Composable
     fun connection() = stringResource(id = R.string.main_connection)
 }

@@ -28,9 +28,9 @@ val videosDto = listOf(
 )
 
 val storiesDao = listOf(
-    StoryEntity(1, "Author1", 10000.0,  "image1", "sport1", "teaser1", "title1"),
-    StoryEntity(2, "Author2", dateMin,  "image2", "sport2", "teaser2", "title2"),
-    StoryEntity(3, "Author3", 10100.0,  "image3", "sport3", "teaser3", "title3"),
+    StoryEntity(1, "Author1", 10000.0, "image1", "sport1", "teaser1", "title1"),
+    StoryEntity(2, "Author2", dateMin, "image2", "sport2", "teaser2", "title2"),
+    StoryEntity(3, "Author3", 10100.0, "image3", "sport3", "teaser3", "title3"),
 )
 
 val videosDao = listOf(

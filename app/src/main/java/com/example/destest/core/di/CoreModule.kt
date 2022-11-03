@@ -14,7 +14,7 @@ object CoreModule {
 
     @Provides
     @Singleton
-    fun provideAppStateService() : AppStateService {
+    fun provideAppStateService(): AppStateService {
         return AppStateServiceImpl()
     }
 }

@@ -16,7 +16,7 @@ private val dimens = object {
     val viewsPadding = 10.dp
 }
 
-private val strings = object : Any(){
+private val strings = object : Any() {
     @Composable
     fun views() = stringResource(id = R.string.content_views)
 }

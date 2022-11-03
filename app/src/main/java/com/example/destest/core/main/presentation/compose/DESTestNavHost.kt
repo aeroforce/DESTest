@@ -49,9 +49,11 @@ fun DESTestNavHost(
             }
             composable(
                 route = "${AppRoute.STORY.route}/{${AppRouteParameter.STORY.param}}",
-                arguments = listOf(navArgument(AppRouteParameter.STORY.param) {
-                    type = NavType.IntType
-                })
+                arguments = listOf(
+                    navArgument(AppRouteParameter.STORY.param) {
+                        type = NavType.IntType
+                    }
+                )
             ) {
                 activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
                 activity.showSystemUI()
@@ -59,9 +61,11 @@ fun DESTestNavHost(
             }
             composable(
                 route = "${AppRoute.PLAYER.route}/{${AppRouteParameter.PLAYER.param}}",
-                arguments = listOf(navArgument(AppRouteParameter.PLAYER.param) {
-                    type = NavType.IntType
-                })
+                arguments = listOf(
+                    navArgument(AppRouteParameter.PLAYER.param) {
+                        type = NavType.IntType
+                    }
+                )
             ) {
                 activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
                 activity.hideSystemUI()
@@ -71,7 +75,7 @@ fun DESTestNavHost(
         if (viewModel.busyState) {
             LoadingOverlay()
         }
-        if(viewModel.connectionProblemState) {
+        if (viewModel.connectionProblemState) {
             ConnectionProblemInfo(modifier = Modifier.align(Alignment.BottomCenter))
         }
     }

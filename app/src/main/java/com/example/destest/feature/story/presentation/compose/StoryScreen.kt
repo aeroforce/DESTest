@@ -21,13 +21,13 @@ private val dimens = object {
 }
 
 @Composable
-fun StoryScreen(onBackClick :() -> Unit = {}) {
+fun StoryScreen(onBackClick: () -> Unit = {}) {
     val viewModel = hiltViewModel<StoryViewModel>()
     StoryComponent(story = viewModel.story, onBackClick = onBackClick)
 }
 
 @Composable
-private fun StoryComponent(story: Story, onBackClick :() -> Unit = {}) {
+private fun StoryComponent(story: Story, onBackClick: () -> Unit = {}) {
     Box(
         modifier = Modifier
             .fillMaxSize()

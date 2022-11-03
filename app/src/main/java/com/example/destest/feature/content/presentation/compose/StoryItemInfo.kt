@@ -17,7 +17,7 @@ private val dimens = object {
     val authorPadding = 10.dp
 }
 
-private val strings = object : Any(){
+private val strings = object : Any() {
     @Composable
     fun by() = stringResource(id = R.string.content_by)
 }

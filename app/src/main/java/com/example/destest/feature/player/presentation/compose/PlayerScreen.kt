@@ -24,14 +24,15 @@ import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
 import com.google.android.exoplayer2.ui.StyledPlayerView
 
 @Composable
-fun PlayerScreen(onBackClick :() -> Unit = {}) {
+fun PlayerScreen(onBackClick: () -> Unit = {}) {
     val context = LocalContext.current
     val viewModel = hiltViewModel<PlayerViewModel>()
     val state = viewModel.state
 
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .background(Black)
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Black)
     ) {
         if (state.mediaItem != MediaItem.EMPTY && state.isConnectionProblem.not()) {
             val player = ExoPlayer.Builder(context).build()

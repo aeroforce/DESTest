@@ -33,7 +33,7 @@ fun StoryPoster(
     modifier: Modifier = Modifier,
     image: String,
     description: String,
-    onBackClick :() -> Unit = {},
+    onBackClick: () -> Unit = {},
 ) {
     Box(
         modifier = modifier

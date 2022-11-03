@@ -70,7 +70,6 @@ class ContentRepositoryImplTest {
         assert(emits == flowSuccessCount)
     }
 
-
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `getContent Success should have content items sorted by date`() = runTest {
@@ -90,7 +89,7 @@ class ContentRepositoryImplTest {
 
         // then
         firstContentItem?.let {
-            assert(it.date ==  dateMax)
+            assert(it.date == dateMax)
         }
 
         lastContentItem?.let {
@@ -126,6 +125,6 @@ class ContentRepositoryImplTest {
         contentRepositoryImpl.getContent().toList()
 
         // then
-        coVerify (exactly = 1) { contentApi.getContent() }
+        coVerify(exactly = 1) { contentApi.getContent() }
     }
 }

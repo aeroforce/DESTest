@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class AppStateServiceImpl: AppStateService {
+class AppStateServiceImpl : AppStateService {
 
     private val isBusy = MutableStateFlow(false)
     private val isConnectionProblem = MutableStateFlow(false)

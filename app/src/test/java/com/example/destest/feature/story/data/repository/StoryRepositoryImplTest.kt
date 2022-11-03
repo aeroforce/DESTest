@@ -19,7 +19,6 @@ import org.junit.Before
 import org.junit.Test
 import java.io.IOException
 
-
 class StoryRepositoryImplTest {
 
     private lateinit var storyRepositoryImpl: StoryRepositoryImpl
@@ -49,7 +48,6 @@ class StoryRepositoryImplTest {
         // then
         assert(data is Resource.Loading)
     }
-
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
@@ -92,6 +90,6 @@ class StoryRepositoryImplTest {
         storyRepositoryImpl.getStory(storyId).toList()
 
         // then
-        coVerify (exactly = 1) { contentApi.getContent() }
+        coVerify(exactly = 1) { contentApi.getContent() }
     }
 }
