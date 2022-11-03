@@ -20,10 +20,10 @@ class ContentRepositoryImpl(
     override fun getContent(): Flow<Resource<List<ContentItem>>> = flow {
         emit(Resource.Loading())
 
-        val stories = storyDao.getStories().map { it.toStory() }
-        val videos = videoDao.getVideos().map { it.toVideo() }
+        val stories = storyDao.getStories().map { it.toStory() }.sortedByDescending { it.date }
+        val videos = videoDao.getVideos().map { it.toVideo() }.sortedByDescending { it.date }
 
-        val contents = (stories + videos).sortedByDescending { it.date }
+        val contents = shuffleContent(videos, stories)
         emit(Resource.Loading(data = contents))
 
         try {
@@ -39,9 +39,24 @@ class ContentRepositoryImpl(
             emit(Resource.Error(ErrorMessage.IO_EXCEPTION.message, contents))
         }
 
-        val newStories = storyDao.getStories().map { it.toStory() }
-        val newVideos = videoDao.getVideos().map { it.toVideo() }
-        val newContents = (newStories + newVideos).sortedByDescending { it.date }
+        val newStories = storyDao.getStories().map { it.toStory() }.sortedByDescending { it.date }
+        val newVideos = videoDao.getVideos().map { it.toVideo() }.sortedByDescending { it.date }
+        val newContents = shuffleContent(newVideos, newStories)
         emit(Resource.Success(newContents))
     }
+
+    private fun shuffleContent(list1: List<ContentItem>, list2: List<ContentItem>): List<ContentItem> {
+        return when {
+            list1.size > list2.size -> shuffleContentSized(list1, list2)
+            list2.size > list1.size -> shuffleContentSized(list2, list1)
+            else -> shuffleContentEqual(list1, list2)
+        }
+    }
+
+    private fun shuffleContentSized(listBig: List<ContentItem>, listSmall: List<ContentItem>) =
+        listBig.zip(listSmall).flatMap { listOf(it.first, it.second) } + listBig.drop(listSmall.size)
+
+    //private fun shuffleContentEqualD(list1: List<ContentItem>, list2: List<ContentItem>) = list1.zip(list2) { a,b -> listOf(a,b) }.flatten()
+
+    private fun shuffleContentEqual(list1: List<ContentItem>, list2: List<ContentItem>) = list1.zip(list2).flatMap { listOf(it.first, it.second) }
 }
