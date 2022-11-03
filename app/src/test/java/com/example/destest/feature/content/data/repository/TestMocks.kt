@@ -13,7 +13,7 @@ const val dateMax = 11000.0
 const val resourceErrorIndex = 2
 const val resourceSuccessIndex = 2
 const val flowSuccessCount = 3
-const val flowErrorCount = 4
+const val flowErrorCount = 3
 
 val storyDto1 = StoryDto("Author1", 10000.0, 1, "image1", SportDto(1, "sport1"), "teaser1", "title1")
 val storyDto2MinDate = StoryDto("Author2", dateMin, 2, "image2", SportDto(2, "sport2"), "teaser2", "title2")

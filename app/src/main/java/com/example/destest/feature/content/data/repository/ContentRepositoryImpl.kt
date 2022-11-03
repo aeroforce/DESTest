@@ -33,16 +33,16 @@ class ContentRepositoryImpl(
             storyDao.insertStories(remoteContent.stories.map { it.toStoryEntity() })
             videoDao.deleteVideos(remoteContent.videos.map { it.id })
             videoDao.insertVideos(remoteContent.videos.map { it.toVideoEntity() })
+
+            val newStories = storyDao.getStories().map { it.toStory() }.sortedByDescending { it.date }
+            val newVideos = videoDao.getVideos().map { it.toVideo() }.sortedByDescending { it.date }
+            val newContents = shuffleContent(newVideos, newStories)
+            emit(Resource.Success(newContents))
         } catch (e: HttpException) {
             emit(Resource.Error(ErrorMessage.HTTP_EXCEPTION.message, contents))
         } catch (e: IOException) {
             emit(Resource.Error(ErrorMessage.IO_EXCEPTION.message, contents))
         }
-
-        val newStories = storyDao.getStories().map { it.toStory() }.sortedByDescending { it.date }
-        val newVideos = videoDao.getVideos().map { it.toVideo() }.sortedByDescending { it.date }
-        val newContents = shuffleContent(newVideos, newStories)
-        emit(Resource.Success(newContents))
     }
 
     private fun shuffleContent(list1: List<ContentItem>, list2: List<ContentItem>): List<ContentItem> {
@@ -55,8 +55,6 @@ class ContentRepositoryImpl(
 
     private fun shuffleContentSized(listBig: List<ContentItem>, listSmall: List<ContentItem>) =
         listBig.zip(listSmall).flatMap { listOf(it.first, it.second) } + listBig.drop(listSmall.size)
-
-    //private fun shuffleContentEqualD(list1: List<ContentItem>, list2: List<ContentItem>) = list1.zip(list2) { a,b -> listOf(a,b) }.flatten()
 
     private fun shuffleContentEqual(list1: List<ContentItem>, list2: List<ContentItem>) = list1.zip(list2).flatMap { listOf(it.first, it.second) }
 }

@@ -40,6 +40,7 @@ class StoryViewModel @Inject constructor(
                         is Resource.Success -> {
                             story = result.data ?: Story.Empty
                             appStateService.setBusy(false)
+                            appStateService.setConnectionProblem(false)
                         }
                         is Resource.Error -> {
                             story = result.data ?: Story.Empty

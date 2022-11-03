@@ -49,6 +49,7 @@ class PlayerViewModel @Inject constructor(
                                 mediaItem = result.data?.url?.let { MediaItem.fromUri(it) } ?: mediaItem,
                             )
                             appStateService.setBusy(false)
+                            appStateService.setConnectionProblem(false)
                         }
                         is Resource.Error -> {
                             appStateService.setBusy(false)
